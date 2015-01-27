@@ -7,12 +7,11 @@ import starling.display.Stage;
 
 class Root extends Sprite {
 
-    public static var assets:AssetManager;    
-    // There's probably a better way to do this
-    // This array makes each ring addressable, with each ring containing a list of arcs
-    public var rings = [for (x in 0...4) new List<Arc>()];
+    public static var assets:AssetManager;
+    public var rootSprite:Sprite;
 
     public function new() {
+        rootSprite = this;
         super();
     }
 
@@ -20,7 +19,7 @@ class Root extends Sprite {
 
         assets = new AssetManager();
         //assets.enqueue("assets/ninja.png");
-        for (num in 1...5)
+        for (num in 1...6)
         {            
             assets.enqueue("assets/arc" + num + ".png");
         }
@@ -31,7 +30,8 @@ class Root extends Sprite {
             trace(ratio);
             if (ratio == 1) {
                 haxe.Log.clear();
-                startGame();
+                //startGame();
+                var game = new Game(rootSprite);                
                 // Start the game
 
 /*                Starling.juggler.tween(startup.loadingBitmap, 2.0, {
@@ -59,22 +59,58 @@ class Root extends Sprite {
         });
     }
 
-    public function startGame()
+/*    public function startGame()
     {
+        var stage = Starling.current.stage;
         var center = new Image(Root.assets.getTexture("Center"));
         center.x = (Starling.current.stage.stageWidth / 2) - (center.texture.width / 2);
-        center.y = Starling.current.stage.stageHeight / 2 - (center.texture.height / 2);
+        center.y = (Starling.current.stage.stageHeight / 2) - (center.texture.height / 2);
         addChild(center);
-/*        for (ring in 0...4)
+
+        var clockwiseArc = new Sprite();
+        clockwiseArc.width = stage.stageWidth;
+        clockwiseArc.height = stage.stageHeight;
+        clockwiseArc.x = stage.stageWidth / 2;                
+        clockwiseArc.y = stage.stageHeight /2;
+        clockwiseArc.pivotX = stage.stageWidth /2;
+        clockwiseArc.pivotY = stage.stageHeight / 2;                
+        
+        Starling.juggler.tween(clockwiseArc, 5.0, {
+            transition: Transitions.LINEAR,
+            rotation: deg2rad(360)
+        });
+
+        addChild(clockwiseArc);
+
+        for (ring in 0...4)
         {            
             if (ring == 0)
             {
-                var arc = new Arc(Root.assets.getTexture("arc1"));
-                arc.x = 
-            }
-            rings.add(ring);
+                for (i in 0...2)
+                {
+                    var arc = new Arc(Root.assets.getTexture("arc5"));                    
+                    arc.y = center.y + (center.texture.height/2);
 
-        }*/
-    }    
+                    if (i % 2 == 0)
+                    {
+                        arc.x = center.x + center.texture.width;
+                    }
+                    else
+                    {   
+                        arc.rotation = deg2rad(180);                     
+                        arc.x = center.x;
+                        
+                    }
+                    rings[ring].add(arc);
+                    clockwiseArc.addChild(arc);
+                }
+                
+            }
+
+        }
+
+    }*/
+
+    
 
 }
