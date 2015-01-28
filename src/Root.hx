@@ -31,7 +31,7 @@ class Root extends Sprite {
             assets.enqueue("assets/arc" + num + ".png");
         }
         assets.enqueue("assets/Center.png");
-        assets.enqueue("assets/Circle.png");
+        assets.enqueue("assets/Triangle.png");
 		
 		// Menu Items
         assets.enqueue("assets/Start.png");
