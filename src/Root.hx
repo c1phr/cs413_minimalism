@@ -29,6 +29,19 @@ class Root extends Sprite {
         }
         assets.enqueue("assets/Center.png");
         assets.enqueue("assets/Circle.png");
+		
+		// Menu Items
+        assets.enqueue("assets/Start.png");
+        assets.enqueue("assets/Quit.png");
+        assets.enqueue("assets/Credits.png");
+		
+		// Credits
+		assets.enqueue("assets/harrisonlambeth.png");
+		assets.enqueue("assets/jackburrell.png");
+		assets.enqueue("assets/joshuaframpton.png");
+		assets.enqueue("assets/ryanbatchelder.png");
+		assets.enqueue("assets/seanbaquiro.png");
+		
         assets.loadQueue(function onProgress(ratio:Float) {
             haxe.Log.clear();
             trace(ratio);
