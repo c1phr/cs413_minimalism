@@ -3,7 +3,7 @@ ADL = $(FLEX_SDK)/bin/adl
 AMXMLC = $(FLEX_SDK)/bin/amxmlc
 SOURCES = src/*.hx assets/loading.png
 
-all: game.swf
+all: clean game.swf test
 
 game.swf: $(SOURCES)
 	haxe \
@@ -13,9 +13,11 @@ game.swf: $(SOURCES)
 	-swf-header 640:360:60:ffffff \
 	-main Startup \
 	-swf game.swf \
-	-swf-lib vendor/starling_1_6.swc --macro "patchTypes('vendor/starling.patch')"
+	-swf-lib vendor/starling_1_6.swc --macro "patchTypes('vendor/starling.patch')" \
+	-debug
 
 clean:
+	del game.swf
 	rm -rf game.swf *~ src/*~
 
 test: game.swf

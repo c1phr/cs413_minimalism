@@ -10,6 +10,10 @@ class Root extends Sprite {
     public static var assets:AssetManager;
     public var rootSprite:Sprite;
 
+	public static function init() {
+		
+	}
+	
     public function new() {
         rootSprite = this;
         super();
@@ -31,7 +35,9 @@ class Root extends Sprite {
             if (ratio == 1) {
                 haxe.Log.clear();
                 //startGame();
-                var game = new Game(rootSprite);                
+                //var game = new Game(rootSprite);                
+				var menu = new Main(rootSprite);
+				menu.start();
                 // Start the game
 
 /*                Starling.juggler.tween(startup.loadingBitmap, 2.0, {
