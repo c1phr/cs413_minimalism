@@ -7,22 +7,16 @@ import starling.display.Stage;
 import starling.events.EnterFrameEvent;
 
 class Game 
-{
-	var arc:Arc;
-	var arc2:Arc;
-	var arc3:Arc;
-	var arc4:Arc;
-	var arc5:Arc;
-	var arc6:Arc;
+{	
+
+    var arcList:List<Arc> = new List<Arc>();    
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
-		arc.update();
-		arc2.update();
-		arc3.update();
-		arc4.update();
-		arc5.update();
-		arc6.update();
+		for (arc in arcList)
+        {
+            arc.update();
+        }
 	}
 	public function new(root:Sprite)
 	{
@@ -31,80 +25,44 @@ class Game
 	}
 	
 	public function startGame(root:Sprite)
-    {
-    	// There's probably a better way to do this
-	    // This array makes each ring addressable, with each ring containing a list of arcs
-	    var rings = [for (x in 0...4) new List<Arc>()];
+    {    	
 		var stage = Starling.current.stage;
+        var stageXCenter:Float = Starling.current.stage.stageWidth / 2;
+        var stageYCenter:Float = Starling.current.stage.stageHeight / 2;
         var center = new Image(Root.assets.getTexture("Center"));
         center.x = (Starling.current.stage.stageWidth / 2) - (center.texture.width / 2);
         center.y = (Starling.current.stage.stageHeight / 2) - (center.texture.height / 2);
         root.addChild(center);
 
-		/*
-        var clockwiseArc = new Sprite();
-        clockwiseArc.width = stage.stageWidth;
-        clockwiseArc.height = stage.stageHeight;
-        clockwiseArc.x = stage.stageWidth / 2;                
-        clockwiseArc.y = stage.stageHeight / 2;
-        clockwiseArc.pivotX = stage.stageWidth / 2;
-        clockwiseArc.pivotY = stage.stageHeight / 2;                
-        
-        Starling.juggler.tween(clockwiseArc, 4.0, {
-            transition: Transitions.LINEAR,
-            rotation: deg2rad(360),
-			repeatCount: 0
-        });
-		*/
-		
-		arc = new Arc(Root.assets.getTexture("arc5"), 60, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(0), .01);
-		root.addChild(arc);
-		
-		arc2 = new Arc(Root.assets.getTexture("arc5"), 60, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(120), .01);
-		root.addChild(arc2);
-		
-		arc3 = new Arc(Root.assets.getTexture("arc5"), 60, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(240), .01);
-		root.addChild(arc3);
-		
-		arc4 = new Arc(Root.assets.getTexture("arc4"), 110, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(40), .03);
-		root.addChild(arc4);
-		
-		arc5 = new Arc(Root.assets.getTexture("arc4"), 110, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(160), .03);
-		root.addChild(arc5);
-		
-		arc6 = new Arc(Root.assets.getTexture("arc4"), 110, Starling.current.stage.stageWidth / 2, Starling.current.stage.stageHeight / 2, deg2rad(280), .03);
-		root.addChild(arc6);
-		
-		/*
-        for (ring in 0...4)
-        {            
-            if (ring == 0)
-            {
-                for (i in 0...2)
-                {
-                    var arc = new Arc(Root.assets.getTexture("arc5"));                    
-                    arc.y = center.y + (center.texture.height/2);
-
-                    if (i % 2 == 0)
-                    {
-                        arc.x = center.x + center.texture.width;
-                    }
-                    else
-                    {   
-                        arc.rotation = deg2rad(180);                     
-                        arc.x = center.x;
-                        
-                    }
-                    rings[ring].add(arc);
-                    clockwiseArc.addChild(arc);
-                }
-                
-            }
-			
+        // Keeping these in separate loops in case we want to change how individual rings are built
+        for (ring1 in 0...3)
+        {
+            var arc = new Arc(Root.assets.getTexture("arc5"), 60, stageXCenter, stageYCenter, deg2rad(120 * ring1), .01);
+            arcList.add(arc);
         }
-		*/
 		
-		// Takes in the level of the Arc and the position in degrees (0 at top) and generates the Arc
+        for (ring2 in 0...3)
+        {
+            var arc = new Arc(Root.assets.getTexture("arc4"), 110, stageXCenter, stageYCenter, deg2rad(240 * ring2), -.02);
+            arcList.add(arc);
+        }
+
+        for (ring3 in 0...3)
+        {
+            var arc = new Arc(Root.assets.getTexture("arc3"), 160, stageXCenter, stageYCenter, deg2rad(240 * ring3), .03);
+            arcList.add(arc);
+        }
+
+        for (ring4 in 0...3)
+        {
+            var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.04);
+            arcList.add(arc);
+        }
+
+        for (arc in arcList)
+        {
+            root.addChild(arc);
+        }
 
     }
 
