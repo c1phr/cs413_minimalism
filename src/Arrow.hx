@@ -39,33 +39,38 @@ class Arrow extends Image
 	{
 	
 		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN,
-			function(event:KeyboardEvent){
-				trace(event.keyCode);
+			function(event:KeyboardEvent){				
 				if (event.keyCode == Keyboard.LEFT) {
 					angle = (angle + .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
-					}
+				}
 				if (event.keyCode == Keyboard.RIGHT){
 					angle = (angle - .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
-					}
+				}
 				if (event.keyCode == Keyboard.UP){
-					radius = radius - 50;
-					x = xcenter + radius * Math.cos(angle);
-					y = ycenter + radius * Math.sin(angle);
-					}
+					if (radius > 50)
+					{
+						radius = radius - 50;
+						x = xcenter + radius * Math.cos(angle);
+						y = ycenter + radius * Math.sin(angle);
+					}					
+				}
 				if (event.keyCode == Keyboard.DOWN){
-					radius = radius + 50;
-					x = xcenter + radius * Math.cos(angle);
-					y = ycenter + radius * Math.sin(angle);					
-					}
-				});
+					if (radius < 320)
+					{
+						radius = radius + 50;
+						x = xcenter + radius * Math.cos(angle);
+						y = ycenter + radius * Math.sin(angle);
+					}					
+				}
+			});
 		
 	}
 }
