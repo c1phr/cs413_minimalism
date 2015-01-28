@@ -12,7 +12,7 @@ class Game extends Sprite
 
     var arcList:List<Arc> = new List<Arc>();    
     var transitionSpeed = 5;
-    public var bgcolor = 255;
+    public var bgcolor = 0;
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
@@ -60,6 +60,12 @@ class Game extends Sprite
         for (ring4 in 0...3)
         {
             var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.04);
+            arcList.add(arc);
+        }
+
+        for (ring5 in 0...3)
+        {
+            var arc = new Arc(Root.assets.getTexture("arc1"), 260, stageXCenter, stageYCenter, deg2rad(10 * ring5), .02);
             arcList.add(arc);
         }
 
