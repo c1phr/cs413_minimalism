@@ -7,12 +7,12 @@ import starling.display.Stage;
 import starling.animation.Tween;
 import starling.events.EnterFrameEvent;
 
-class Game
+class Game extends Sprite
 {	
 
     var arcList:List<Arc> = new List<Arc>();    
     var transitionSpeed = 5;
-    var bgcolor = 255;
+    public var bgcolor = 255;
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
@@ -23,7 +23,9 @@ class Game
 	}
 	public function new(root:Sprite)
 	{
-		startGame(root);
+		//startGame(root);
+        this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
+        super();
 	}
 	
 	public function startGame(root:Sprite)
@@ -34,7 +36,7 @@ class Game
         var center = new Image(Root.assets.getTexture("Center"));
         center.x = (Starling.current.stage.stageWidth / 2) - (center.texture.width / 2);
         center.y = (Starling.current.stage.stageHeight / 2) - (center.texture.height / 2);
-        root.addChild(center);
+        this.addChild(center);
 
         // Keeping these in separate loops in case we want to change how individual rings are built
         for (ring1 in 0...3)
@@ -63,9 +65,9 @@ class Game
 
         for (arc in arcList)
         {
-            root.addChild(arc);
-        }		
-
+            this.addChild(arc);
+        }
+        root.addChild(this);
     }
 	
 	private function transitionIn(?callBack:Void->Void) {

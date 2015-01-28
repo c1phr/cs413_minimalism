@@ -7,13 +7,14 @@ import starling.utils.AssetManager;
 import starling.core.Starling;
 import starling.animation.Transitions;
 import starling.animation.Tween;
+import starling.display.Image;
 
 class Main extends Sprite {
 	
 	public var rootSprite:Sprite;
 	
 	private var selection:Int;
-	private var buttons:Array<Arc>;
+	private var buttons:Array<Image>;
 	
 	private var rotateSpeed = 0.3;
 	private var transitionSpeed = 0.5;
@@ -35,7 +36,7 @@ class Main extends Sprite {
 		this.scaleX = 8;
 		this.scaleY = 8;
 		
-		buttons = [new Arc(Root.assets.getTexture("Start")), new Arc(Root.assets.getTexture("Quit")), new Arc(Root.assets.getTexture("Credits"))];
+		buttons = [new Image(Root.assets.getTexture("Start")), new Image(Root.assets.getTexture("Quit")), new Image(Root.assets.getTexture("Credits"))];
 		for (i in 0...buttons.length) {
 			var button = buttons[i];
 			//button.x = 0;
@@ -66,7 +67,7 @@ class Main extends Sprite {
 				
 				var game = new Game(rootSprite);
 				game.bgcolor = this.bgcolor;
-				game.start();
+				game.startGame(rootSprite);
 				Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 				transitionOut(function() {
 					this.removeFromParent();
