@@ -14,22 +14,22 @@ class Arrow extends Image
 	var xcenter:Float;
 	var ycenter:Float;
 	
-	public function new(tex:Texture, radius, xcenter, ycenter, angle, speed)
+	public function new(tex:Texture, radius, xcenter, ycenter, angle)
 	{
 		
 		// Create an arrow
 		super(tex);
-		pivotX = this.texture.width / 2;
-		pivotY = this.texture.height;
+		pivotX = this.texture.width;
+		pivotY = this.texture.height / 2;
 		this.xcenter = xcenter;
 		this.ycenter = ycenter;
-		x = xcenter;
-		y = ycenter;
+		
 		this.angle = angle;
-		this.speed = speed;
 		this.radius = radius;
 		
-		this.rotation = -1.5;
+		this.rotation = angle;
+		x = xcenter + radius * Math.cos(angle);
+		y = ycenter + radius * Math.sin(angle);
 		move();
 		
 	}
@@ -42,24 +42,28 @@ class Arrow extends Image
 			function(event:KeyboardEvent){
 				trace(event.keyCode);
 				if (event.keyCode == Keyboard.LEFT) {
-					angle = (angle + speed)%(Math.PI*2);
-					x = xcenter - radius * Math.cos(angle);
-					y = ycenter - radius * Math.sin(angle);
-					rotation = angle - .25;
+					angle = (angle + .03)%(Math.PI*2);
+					x = xcenter + radius * Math.cos(angle);
+					y = ycenter + radius * Math.sin(angle);
+					rotation = angle;
 					//trace(angle, x, y, rotation);
 					}
 				if (event.keyCode == Keyboard.RIGHT){
-					angle = (angle + speed)%(Math.PI*2);
+					angle = (angle - .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
-					rotation = angle - .25;
+					rotation = angle;
 					//trace(angle, x, y, rotation);
 					}
 				if (event.keyCode == Keyboard.UP){
-					radius = radius-50;
+					radius = radius - 50;
+					x = xcenter + radius * Math.cos(angle);
+					y = ycenter + radius * Math.sin(angle);
 					}
 				if (event.keyCode == Keyboard.DOWN){
-					radius = radius+50;	
+					radius = radius + 50;
+					x = xcenter + radius * Math.cos(angle);
+					y = ycenter + radius * Math.sin(angle);					
 					}
 				});
 		
