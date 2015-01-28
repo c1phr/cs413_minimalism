@@ -30,6 +30,7 @@ class Arrow extends Image
 		this.radius = radius;
 		
 		this.rotation = -1.5;
+		move();
 		
 	}
 	
