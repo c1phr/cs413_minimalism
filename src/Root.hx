@@ -4,6 +4,7 @@ import starling.display.Image;
 import starling.core.Starling;
 import starling.animation.Transitions;
 import starling.display.Stage;
+import starling.events.EnterFrameEvent;
 
 class Root extends Sprite {
 
@@ -14,6 +15,8 @@ class Root extends Sprite {
         rootSprite = this;
         super();
     }
+	
+
 
     public function start(startup:Startup) {
 
@@ -31,7 +34,8 @@ class Root extends Sprite {
             if (ratio == 1) {
                 haxe.Log.clear();
                 //startGame();
-                var game = new Game(rootSprite);                
+                var game = new Game(rootSprite);
+				this.addEventListener(EnterFrameEvent.ENTER_FRAME, game.onEnterFrame);				
                 // Start the game
 
 /*                Starling.juggler.tween(startup.loadingBitmap, 2.0, {
@@ -57,8 +61,9 @@ class Root extends Sprite {
             }
 
         });
+		
     }
-
+	
 /*    public function startGame()
     {
         var stage = Starling.current.stage;

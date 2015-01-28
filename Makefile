@@ -10,11 +10,14 @@ game.swf: $(SOURCES)
 	-cp src \
 	-cp vendor \
 	-swf-version 11.8 \
-	-swf-header 640:360:60:ffffff \
+	-swf-header 1024:768:60:ffffff \
 	-main Startup \
 	-swf game.swf \
 	-swf-lib vendor/starling_1_6.swc --macro "patchTypes('vendor/starling.patch')"
 
+run:
+	make
+	cygstart game.swf
 clean:
 	rm -rf game.swf *~ src/*~
 
