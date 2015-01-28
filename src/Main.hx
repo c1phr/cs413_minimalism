@@ -36,9 +36,11 @@ class Main extends Sprite {
 		this.scaleX = 8;
 		this.scaleY = 8;
 		
-		buttons = [new Image(Root.assets.getTexture("Start")), new Image(Root.assets.getTexture("Credits"))];
+		buttons = [new Image(Root.assets.getTexture("Start")), new Image(Root.assets.getTexture("Quit")), new Image(Root.assets.getTexture("Credits"))];
 		for (i in 0...buttons.length) {
-			var button = buttons[i];			
+			var button = buttons[i];
+			//button.x = 0;
+			//button.y = 0;
 			button.x = center.x;
 			button.y = center.y;
 			button.pivotX = button.width / 2;
@@ -63,7 +65,8 @@ class Main extends Sprite {
 			if (selection == 0) {
 				// Start
 				
-				var game = new Game(rootSprite);				
+				var game = new Game(rootSprite);
+				game.bgcolor = this.bgcolor;
 				game.startGame(rootSprite);
 				Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
 				transitionOut(function() {
@@ -81,11 +84,19 @@ class Main extends Sprite {
 					this.removeFromParent();
 					this.dispose();
 				});
-				
-			}			
+
+			}
 			else
 			{
-				//trace("boop");
+			    // Quit goes to GameOver screen
+				var gameover = new GameOver(rootSprite);
+				//credits.bgcolor = this.bgcolor;
+				gameover.start();
+				Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
+				transitionOut(function() {
+					this.removeFromParent();
+					this.dispose();
+				});
 			}
 		}
 		else if (tween == null || tween.isComplete)
