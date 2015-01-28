@@ -74,6 +74,9 @@ class Game extends Sprite
             this.addChild(arc);
         }
         root.addChild(this);
+		
+		var arrow = new Arrow(Root.assets.getTexture("Triangle"), 260, stageXCenter, stageYCenter,0, .02);
+        this.addChild(arrow);
     }
 	
 	private function transitionIn(?callBack:Void->Void) {
