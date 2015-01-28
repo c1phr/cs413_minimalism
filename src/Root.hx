@@ -45,6 +45,10 @@ class Root extends Sprite {
 		assets.enqueue("assets/ryanbatchelder.png");
 		assets.enqueue("assets/seanbaquiro.png");
 		
+		// Game Over
+        	assets.enqueue("assets/GameOver.png");
+        	assets.enqueue("assets/Reset.png");
+		
         assets.loadQueue(function onProgress(ratio:Float) {
             haxe.Log.clear();
             trace(ratio);
