@@ -54,7 +54,7 @@ class GameOver extends Sprite {
         var stageYCenter:Float = Starling.current.stage.stageHeight / 2;
 
         /*var delayedCall:DelayedCall = new DelayedCall(reverse, 3.0);
-        delayedCall.repeatCount = 5;
+        delayedCall.repeatCount = 0;
         Starling.juggler.add(delayedCall);*/
 
 
@@ -86,7 +86,7 @@ class GameOver extends Sprite {
 
         for (ring5 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc1"), 475, stageXCenter, stageYCenter, deg2rad(120 * ring5), reverse(.01));
+            var arc = new Arc(Root.assets.getTexture("arc1-2"), 475, stageXCenter, stageYCenter, deg2rad(120 * ring5), reverse(.01));
             arcList.add(arc);
         }
 

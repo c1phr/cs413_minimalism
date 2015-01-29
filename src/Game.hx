@@ -25,6 +25,7 @@ class Game extends Sprite
         if (center.getBounds(this).containsPoint(centerPoint))
         {
             var gameOver = new GameOver(rootSprite);
+            gameOver.bgcolor = this.bgcolor;
             gameOver.start(true);
             this.removeFromParent();
             this.dispose();
@@ -35,6 +36,7 @@ class Game extends Sprite
             if (arc.getBounds(this).containsPoint(centerPoint))
             {
                 var gameOver = new GameOver(rootSprite);
+                gameOver.bgcolor = this.bgcolor;
                 gameOver.start(false);
                 this.removeFromParent();
                 this.dispose();
