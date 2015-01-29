@@ -44,7 +44,7 @@ class Arrow extends Image
 		Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN,
 			function(event:KeyboardEvent){				
 				if (event.keyCode == Keyboard.LEFT) {
-					angle = (angle + .04)%(Math.PI*2);
+					angle = (angle + .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 
@@ -54,7 +54,7 @@ class Arrow extends Image
 					//trace(angle, x, y, rotation);
 				}
 				if (event.keyCode == Keyboard.RIGHT){
-					angle = (angle - .04)%(Math.PI*2);
+					angle = (angle - .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 

@@ -90,7 +90,7 @@ class Main extends Sprite {
 			{
 			    // Quit goes to GameOver screen
 				var gameover = new GameOver(rootSprite);
-				gameover.bgcolor = this.bgcolor;
+				//credits.bgcolor = this.bgcolor;
 
 				gameover.start(false);
 				Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
