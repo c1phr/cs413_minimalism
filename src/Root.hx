@@ -47,6 +47,7 @@ class Root extends Sprite {
 		
 		// Game Over
         	assets.enqueue("assets/GameOver.png");
+            assets.enqueue("assets/GameWon.png");
         	//assets.enqueue("assets/Reset.png");
 		
         assets.loadQueue(function onProgress(ratio:Float) {

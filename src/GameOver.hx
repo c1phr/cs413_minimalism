@@ -19,11 +19,20 @@ class GameOver extends Sprite {
         super();
     }
 
-    public function start() {
+    public function start(win:Bool) {
 
         Starling.current.stage.addEventListener(KeyboardEvent.KEY_DOWN, handleInput);
         names = new List<Image>();
-        var name = new Image(Root.assets.getTexture("GameOver"));
+        var name:Image;
+        if (win)
+        {
+            name = new Image(Root.assets.getTexture("GameWon"));
+        }
+        else
+        {
+            name = new Image(Root.assets.getTexture("GameOver"));
+        }
+        
         rootSprite.addChild(this);
         this.addChild(name);
 

@@ -17,17 +17,25 @@ class Game extends Sprite
     public var bgcolor = 0;
     var arrow:Arrow;
     var rootSprite:Sprite;
+    var center:Image;
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
+        var centerPoint:Point = new Point(arrow.arrowXCenter, arrow.arrowYCenter);
+        if (center.getBounds(this).containsPoint(centerPoint))
+        {
+            var gameOver = new GameOver(rootSprite);
+            gameOver.start(true);
+            this.removeFromParent();
+            this.dispose();
+        }
 		for (arc in arcList)
-        {            
-            var centerPoint:Point = new Point(arrow.arrowXCenter, arrow.arrowYCenter);            
-            var bounds:Rectangle = arc.update();
+        {                        
+            arc.update();
             if (arc.getBounds(this).containsPoint(centerPoint))
             {
                 var gameOver = new GameOver(rootSprite);
-                gameOver.start();
+                gameOver.start(false);
                 this.removeFromParent();
                 this.dispose();
             }            
@@ -44,7 +52,7 @@ class Game extends Sprite
 		var stage = Starling.current.stage;
         var stageXCenter:Float = Starling.current.stage.stageWidth / 2;
         var stageYCenter:Float = Starling.current.stage.stageHeight / 2;
-        var center = new Image(Root.assets.getTexture("Center"));
+        center = new Image(Root.assets.getTexture("Center"));
         this.rootSprite = root;
         center.x = (Starling.current.stage.stageWidth / 2) - (center.texture.width / 2);
         center.y = (Starling.current.stage.stageHeight / 2) - (center.texture.height / 2);
@@ -59,25 +67,25 @@ class Game extends Sprite
 		
         for (ring2 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc4"), 110, stageXCenter, stageYCenter, deg2rad(240 * ring2), -.02);
+            var arc = new Arc(Root.assets.getTexture("arc4"), 110, stageXCenter, stageYCenter, deg2rad(240 * ring2), -.01);
             arcList.add(arc);
         }
 
         for (ring3 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc3"), 160, stageXCenter, stageYCenter, deg2rad(240 * ring3), .03);
+            var arc = new Arc(Root.assets.getTexture("arc3"), 160, stageXCenter, stageYCenter, deg2rad(240 * ring3), .01);
             arcList.add(arc);
         }
 
         for (ring4 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.04);
+            var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.01);
             arcList.add(arc);
         }
 
         for (ring5 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc1"), 260, stageXCenter, stageYCenter, deg2rad(10 * ring5), .02);
+            var arc = new Arc(Root.assets.getTexture("arc1"), 260, stageXCenter, stageYCenter, deg2rad(10 * ring5), .01);
             arcList.add(arc);
         }
 

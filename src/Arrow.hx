@@ -48,8 +48,8 @@ class Arrow extends Image
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 
-					arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
-					arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
+					arrowXCenter = xcenter + (radius-15) * Math.cos(angle);
+					arrowYCenter = ycenter + (radius-15) * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
 				}
@@ -58,8 +58,8 @@ class Arrow extends Image
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
 
-					arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
-					arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
+					arrowXCenter = xcenter + (radius-15) * Math.cos(angle);
+					arrowYCenter = ycenter + (radius-15) * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
 				}
@@ -69,8 +69,8 @@ class Arrow extends Image
 						radius = radius - 50;
 						x = xcenter + radius * Math.cos(angle);
 						y = ycenter + radius * Math.sin(angle);
-						arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
-						arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
+						arrowXCenter = xcenter + (radius-15) * Math.cos(angle);
+						arrowYCenter = ycenter + (radius-15) * Math.sin(angle);
 					}					
 				}
 				if (event.keyCode == Keyboard.DOWN){
@@ -80,8 +80,8 @@ class Arrow extends Image
 						x = xcenter + radius * Math.cos(angle);
 						y = ycenter + radius * Math.sin(angle);
 
-						arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
-						arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
+						arrowXCenter = xcenter + (radius-15) * Math.cos(angle);
+						arrowYCenter = ycenter + (radius-15) * Math.sin(angle);
 					}					
 				}
 			});
