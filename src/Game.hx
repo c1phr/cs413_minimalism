@@ -6,6 +6,8 @@ import starling.animation.Transitions;
 import starling.display.Stage;
 import starling.animation.Tween;
 import starling.events.EnterFrameEvent;
+import flash.geom.Rectangle;
+import flash.geom.Point;
 
 class Game extends Sprite
 {	
@@ -13,17 +15,26 @@ class Game extends Sprite
     var arcList:List<Arc> = new List<Arc>();    
     var transitionSpeed = 5;
     public var bgcolor = 0;
+    var arrow:Arrow;
+    var rootSprite:Sprite;
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
 		for (arc in arcList)
-        {
-            arc.update();
+        {            
+            var centerPoint:Point = new Point(arrow.arrowXCenter, arrow.arrowYCenter);            
+            var bounds:Rectangle = arc.update();
+            if (arc.getBounds(this).containsPoint(centerPoint))
+            {
+                var gameOver = new GameOver(rootSprite);
+                gameOver.start();
+                this.removeFromParent();
+                this.dispose();
+            }            
         }
 	}
 	public function new(root:Sprite)
-	{
-		//startGame(root);
+	{		
         this.addEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
         super();
 	}
@@ -34,6 +45,7 @@ class Game extends Sprite
         var stageXCenter:Float = Starling.current.stage.stageWidth / 2;
         var stageYCenter:Float = Starling.current.stage.stageHeight / 2;
         var center = new Image(Root.assets.getTexture("Center"));
+        this.rootSprite = root;
         center.x = (Starling.current.stage.stageWidth / 2) - (center.texture.width / 2);
         center.y = (Starling.current.stage.stageHeight / 2) - (center.texture.height / 2);
         this.addChild(center);
@@ -75,7 +87,7 @@ class Game extends Sprite
         }
         root.addChild(this);
 		
-		var arrow = new Arrow(Root.assets.getTexture("Triangle"), 320, stageXCenter, stageYCenter,0);
+		arrow = new Arrow(Root.assets.getTexture("Triangle"), 320, stageXCenter, stageYCenter,0);
         this.addChild(arrow);
     }
 	

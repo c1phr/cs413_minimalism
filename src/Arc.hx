@@ -1,6 +1,7 @@
 import starling.display.Image;
 import starling.textures.Texture;
 import starling.utils.MathUtil;
+import flash.geom.Rectangle;
 
 class Arc extends Image
 {
@@ -31,12 +32,13 @@ class Arc extends Image
 	}
 	
 	// Updates the position of the arc based on the radius and speed desired
-	public function update()
+	public function update() : Rectangle
 	{
 		angle = (angle + speed)%(Math.PI*2);
 		x = xcenter + radius * Math.cos(angle);
 		y = ycenter + radius * Math.sin(angle);
 		rotation = angle - .25;
 		//trace(angle, x, y, rotation);
+		return this.bounds;
 	}
 }

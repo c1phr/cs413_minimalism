@@ -4,6 +4,7 @@ import starling.utils.MathUtil;
 import starling.events.KeyboardEvent;
 import flash.ui.Keyboard;
 import starling.core.Starling;
+import starling.display.Quad;
 
 class Arrow extends Image
 {
@@ -13,6 +14,9 @@ class Arrow extends Image
 	var radius:Float;
 	var xcenter:Float;
 	var ycenter:Float;
+
+	public var arrowXCenter:Float;
+	public var arrowYCenter:Float;
 	
 	public function new(tex:Texture, radius, xcenter, ycenter, angle)
 	{
@@ -30,8 +34,7 @@ class Arrow extends Image
 		this.rotation = angle;
 		x = xcenter + radius * Math.cos(angle);
 		y = ycenter + radius * Math.sin(angle);
-		move();
-		
+		move();		
 	}
 	
 	// Updates the position of the arrow based on user input
@@ -44,6 +47,9 @@ class Arrow extends Image
 					angle = (angle + .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
+
+					arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
+					arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
 				}
@@ -51,6 +57,9 @@ class Arrow extends Image
 					angle = (angle - .03)%(Math.PI*2);
 					x = xcenter + radius * Math.cos(angle);
 					y = ycenter + radius * Math.sin(angle);
+
+					arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
+					arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
 					rotation = angle;
 					//trace(angle, x, y, rotation);
 				}
@@ -60,6 +69,8 @@ class Arrow extends Image
 						radius = radius - 50;
 						x = xcenter + radius * Math.cos(angle);
 						y = ycenter + radius * Math.sin(angle);
+						arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
+						arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
 					}					
 				}
 				if (event.keyCode == Keyboard.DOWN){
@@ -68,6 +79,9 @@ class Arrow extends Image
 						radius = radius + 50;
 						x = xcenter + radius * Math.cos(angle);
 						y = ycenter + radius * Math.sin(angle);
+
+						arrowXCenter = xcenter + (radius-7) * Math.cos(angle);
+						arrowYCenter = ycenter + (radius-7) * Math.sin(angle);
 					}					
 				}
 			});

@@ -46,8 +46,8 @@ class Root extends Sprite {
 		assets.enqueue("assets/seanbaquiro.png");
 		
 		// Game Over
-        /*	assets.enqueue("assets/GameOver.png");
-        	assets.enqueue("assets/Reset.png");*/
+        	assets.enqueue("assets/GameOver.png");
+        	//assets.enqueue("assets/Reset.png");
 		
         assets.loadQueue(function onProgress(ratio:Float) {
             haxe.Log.clear();
@@ -55,9 +55,7 @@ class Root extends Sprite {
             if (ratio == 1) {
                 haxe.Log.clear();
                 var menu = new Main(rootSprite);
-                menu.start();
-                //var game = new Game(rootSprite);
-				// 
+                menu.start();                
             }
 
         });
