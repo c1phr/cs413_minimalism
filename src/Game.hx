@@ -61,7 +61,7 @@ class Game extends Sprite
         // Keeping these in separate loops in case we want to change how individual rings are built
         for (ring1 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc5"), 60, stageXCenter, stageYCenter, deg2rad(120 * ring1), .01);
+            var arc = new Arc(Root.assets.getTexture("arc5"), 60, stageXCenter, stageYCenter, deg2rad(120 * ring1), .02);
             arcList.add(arc);
         }
 		
@@ -73,13 +73,13 @@ class Game extends Sprite
 
         for (ring3 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc3"), 160, stageXCenter, stageYCenter, deg2rad(240 * ring3), .01);
+            var arc = new Arc(Root.assets.getTexture("arc3"), 160, stageXCenter, stageYCenter, deg2rad(240 * ring3), .015);
             arcList.add(arc);
         }
 
         for (ring4 in 0...3)
         {
-            var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.01);
+            var arc = new Arc(Root.assets.getTexture("arc2"), 210, stageXCenter, stageYCenter, deg2rad(120 * ring4), -.02);
             arcList.add(arc);
         }
 
