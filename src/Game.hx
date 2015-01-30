@@ -13,11 +13,13 @@ class Game extends Sprite
 {	
 
     var arcList:List<Arc> = new List<Arc>();    
-    var transitionSpeed = 5;
+    var transitionSpeed = 0.5;
     public var bgcolor = 0;
     var arrow:Arrow;
     var rootSprite:Sprite;
     var center:Image;
+	
+	var radiusOffset = 0.0;
 	
 	public function onEnterFrame(event:EnterFrameEvent)
 	{
@@ -26,12 +28,19 @@ class Game extends Sprite
         {
             var gameOver = new GameOver(rootSprite);
             gameOver.start(true);
-            this.removeFromParent();
-            this.dispose();
+			cleanup();
+			this.addEventListener(EnterFrameEvent.ENTER_FRAME, function(event:EnterFrameEvent) {
+				for (arc in arcList)
+					arc.update(radiusOffset);
+			});
+			transitionOutWin(function() {
+				this.removeFromParent();
+				this.dispose();
+			});
         }
 		for (arc in arcList)
         {                
-            arc.update();
+            arc.update(radiusOffset);
 			//trace("(" + arc.radius + ") - (" + arrow.radius + ")");
 			// Only check arcs on same radius level
             if (arc.radius == arrow.radius - 10)
@@ -54,8 +63,15 @@ class Game extends Sprite
 				{	
 					var gameOver = new GameOver(rootSprite);
 					gameOver.start(false);
-					this.removeFromParent();
-					this.dispose();
+					cleanup();
+					this.addEventListener(EnterFrameEvent.ENTER_FRAME, function(event:EnterFrameEvent) {
+						for (arc in arcList)
+							arc.update(radiusOffset);
+					});
+					transitionOutDeath(function() {
+						this.removeFromParent();
+						this.dispose();
+					});
 				}
             }            
         }
@@ -118,6 +134,11 @@ class Game extends Sprite
         this.addChild(arrow);
     }
 	
+	private function cleanup() {
+			this.removeEventListener(EnterFrameEvent.ENTER_FRAME, onEnterFrame);
+			arrow.destroy();
+	}
+	
 	private function transitionIn(?callBack:Void->Void) {
 		
 		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN_OUT);
@@ -131,13 +152,43 @@ class Game extends Sprite
 		Starling.juggler.add(t);
 	}
 	
-	private function transitionOut(?callBack:Void->Void) {
+	private function transitionOutWin(?callBack:Void->Void) {
 		
-		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN_OUT);
-		t.animate("scaleX", 8);
-		t.animate("scaleY", 8);
+		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN);
+		t.animate("radiusOffset", Starling.current.stage.stageWidth / 2 + 100);
 		t.onComplete = callBack;
 		Starling.juggler.add(t);
+		
+		var t = new Tween(center, transitionSpeed, Transitions.EASE_IN);
+		t.animate("scaleX", 0);
+		t.animate("scaleY", 0);
+		Starling.juggler.add(t);
+		
+		var t = new Tween(arrow, transitionSpeed, Transitions.EASE_IN);
+		t.animate("scaleX", 0);
+		t.animate("scaleY", 0);
+		Starling.juggler.add(t);
+		
+	}
+	
+	public function transitionOutDeath(?callBack:Void->Void) {
+		
+		var t = new Tween(arrow, transitionSpeed, Transitions.EASE_IN_BACK);
+		t.animate("y", y + Starling.current.stage.stageHeight + 100);
+		t.onComplete = callBack;
+		Starling.juggler.add(t);
+		
+		var t = new Tween(center, transitionSpeed, Transitions.EASE_IN_BACK);
+		t.animate("y", y + Starling.current.stage.stageHeight + 100);
+		Starling.juggler.add(t);
+		
+		for (arc in arcList) {
+			
+			var t = new Tween(arc, transitionSpeed, Transitions.EASE_IN_BACK);
+			t.animate("y", y + Starling.current.stage.stageHeight + 100);
+			Starling.juggler.add(t);
+			
+		}
 	}
 
 

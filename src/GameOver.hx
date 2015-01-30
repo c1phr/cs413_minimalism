@@ -15,14 +15,15 @@ class GameOver extends Sprite {
 
     public var rootSprite:Sprite;
     public var arcList:List<Arc> = new List<Arc>();
-    public var bgcolor = 255;
+    public var bgcolor = 0;
     private var bgscreen:List<Image>;
+	private var transitionSpeed = 1.0;
 
     public function onEnterFrame(event:EnterFrameEvent)
     {
         for (arc in arcList)
         {
-            arc.update();
+            arc.update(0);
         }
     }
 
@@ -59,19 +60,7 @@ class GameOver extends Sprite {
 
 
         // Keeping these in separate loops in case we want to change how individual rings are built
-    /*
-        for (ring1 in 0...3)
-        {
-            var arc = new Arc(Root.assets.getTexture("arc5"), 60, stageXCenter, stageYCenter, deg2rad(120 * ring1), .01);
-            arcList.add(arc);
-        }
 
-        for (ring2 in 0...3)
-        {
-            var arc = new Arc(Root.assets.getTexture("arc4"), 200, stageXCenter, stageYCenter, deg2rad(240 * ring2), -.02);
-            arcList.add(arc);
-        }
-    */
         for (ring3 in 0...3)
         {
             var arc = new Arc(Root.assets.getTexture("arc3"), 275, stageXCenter, stageYCenter, deg2rad(240 * ring3), reverse(.02));
@@ -95,6 +84,23 @@ class GameOver extends Sprite {
             this.addChild(arc);
         }
         rootSprite.addChild(this);
+		
+		if (win)
+		{
+			scaleX = 8;
+			scaleY = 8;
+			x = stageXCenter * -7;
+			y = stageYCenter * -7 - 300;
+			transitionInWin();
+		}
+		else
+		{
+			scaleX = 0;
+			scaleY = 0;
+			x = stageXCenter;
+			y = stageYCenter;
+			transitionInLose();
+		}
 
     }
 
@@ -107,9 +113,11 @@ class GameOver extends Sprite {
             menu.bgcolor = this.bgcolor;
             menu.start();
             Starling.current.stage.removeEventListener(KeyboardEvent.KEY_DOWN, handleInput);
-
+			transitionSpeed = 0.5;
+			transitionOut(function() {
                 this.removeFromParent();
                 this.dispose();
+			});
         };
     }
     public static function deg2rad(deg:Int)
@@ -121,4 +129,54 @@ class GameOver extends Sprite {
     {
         return num * -1;
     }
+	
+	private function transitionInWin(?callBack:Void->Void) {
+		
+		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN_OUT);
+		t.animate("scaleX", 1);
+		t.animate("scaleY", 1);
+		t.animate("x", 0);
+		t.animate("y", 0);
+		t.onComplete = callBack;
+		Starling.juggler.add(t);
+	}
+	
+	private function transitionInLose(?callBack:Void->Void) {
+		
+		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN_OUT);
+		t.animate("scaleX", 1);
+		t.animate("scaleY", 1);
+		t.animate("x", 0);
+		t.animate("y", 0);
+		t.onComplete = callBack;
+		Starling.juggler.add(t);
+		
+		var t = new Tween(this, transitionSpeed*0.05, Transitions.EASE_OUT);
+		t.animate("bgcolor", 255);
+		t.onUpdate = function() {
+			Starling.current.stage.color = this.bgcolor | this.bgcolor << 8 | this.bgcolor << 16;
+		};
+		t.onComplete = function() {
+			var t = new Tween(this, transitionSpeed*0.45, Transitions.EASE_IN_OUT);
+			t.animate("bgcolor", 0);
+			t.onUpdate = function() {
+				Starling.current.stage.color = this.bgcolor | this.bgcolor << 8 | this.bgcolor << 16;
+			};
+			Starling.juggler.add(t);
+		}
+		Starling.juggler.add(t);
+	}
+	
+	private function transitionOut(?callBack:Void->Void) {
+		
+        var stageXCenter:Float = Starling.current.stage.stageWidth / 2;
+        var stageYCenter:Float = Starling.current.stage.stageHeight / 2;
+		var t = new Tween(this, transitionSpeed, Transitions.EASE_IN_OUT);
+		t.animate("scaleX", 0);
+		t.animate("scaleY", 0);
+		t.animate("x", stageXCenter);
+		t.animate("y", stageYCenter);
+		t.onComplete = callBack;
+		Starling.juggler.add(t);
+	}
 }

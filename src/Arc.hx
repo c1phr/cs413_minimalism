@@ -32,11 +32,13 @@ class Arc extends Image
 	}
 	
 	// Updates the position of the arc based on the radius and speed desired
-	public function update() : Rectangle
+	public function update(radiusOffset:Float) : Rectangle
 	{
+		var rad = radius + radiusOffset;
+		
 		angle = arithMod((angle + speed), (Math.PI * 2));
-		x = xcenter + radius * Math.cos(angle);
-		y = ycenter + radius * Math.sin(angle);
+		x = xcenter + rad * Math.cos(angle);
+		y = ycenter + rad * Math.sin(angle);
 		rotation = angle - .25;
 		//trace(angle, x, y, rotation);
 		return this.bounds;
