@@ -5,12 +5,12 @@ import flash.geom.Rectangle;
 
 class Arc extends Image
 {
-	var orientation:Float;
-	var angle:Float;
-	var speed:Float;
-	var radius:Float;
-	var xcenter:Float;
-	var ycenter:Float;
+	public var orientation:Float;
+	public var angle:Float;
+	public var speed:Float;
+	public var radius:Float;
+	public var xcenter:Float;
+	public var ycenter:Float;
 	
 	public function new(tex:Texture, radius, xcenter, ycenter, angle, speed)
 	{
@@ -34,11 +34,18 @@ class Arc extends Image
 	// Updates the position of the arc based on the radius and speed desired
 	public function update() : Rectangle
 	{
-		angle = (angle + speed)%(Math.PI*2);
+		angle = arithMod((angle + speed), (Math.PI * 2));
 		x = xcenter + radius * Math.cos(angle);
 		y = ycenter + radius * Math.sin(angle);
 		rotation = angle - .25;
 		//trace(angle, x, y, rotation);
 		return this.bounds;
+	}
+	
+	public function arithMod(n:Float, d:Float) : Float {
+		var r = n % d;
+		if (r < 0)
+			r += d;
+		return r;
 	}
 }

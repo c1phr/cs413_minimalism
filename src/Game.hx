@@ -30,14 +30,33 @@ class Game extends Sprite
             this.dispose();
         }
 		for (arc in arcList)
-        {                        
+        {                
             arc.update();
-            if (arc.getBounds(this).containsPoint(centerPoint))
+			//trace("(" + arc.radius + ") - (" + arrow.radius + ")");
+			// Only check arcs on same radius level
+            if (arc.radius == arrow.radius - 10)
             {
-                var gameOver = new GameOver(rootSprite);
-                gameOver.start(false);
-                this.removeFromParent();
-                this.dispose();
+				var arcAngRange = 0.36;
+				var arrAngRange = 0.07;
+				
+				var arrAngle = arrow.angle;
+				var arcAngleLow = arc.angle - arcAngRange;
+				var arcAngleHi = arc.angle;
+				
+				if (arrAngle + arcAngRange + arrAngRange > Math.PI * 2)
+					arrAngle -= 2 * Math.PI;
+					
+				//trace("arr: " + (Math.fround(arrAngle * 100) / 100) +
+				//		", arcL: " + (Math.fround(arcAngleLow * 100) / 100) +
+				//		", arcH: " + (Math.fround(arcAngleHi * 100) / 100));
+				
+				if (arrAngle + arrAngRange*2 > arcAngleLow && arrAngle - arrAngRange < arcAngleHi)
+				{	
+					var gameOver = new GameOver(rootSprite);
+					gameOver.start(false);
+					this.removeFromParent();
+					this.dispose();
+				}
             }            
         }
 	}

@@ -9,12 +9,12 @@ import starling.display.Quad;
 
 class Arrow extends Image
 {
-	var orientation:Float;
-	var angle:Float;
-	var speed:Float;
-	var radius:Float;
-	var xcenter:Float;
-	var ycenter:Float;
+	public var orientation:Float;
+	public var angle:Float;
+	public var speed:Float;
+	public var radius:Float;
+	public var xcenter:Float;
+	public var ycenter:Float;
 
 	public var arrowXCenter:Float;
 	public var arrowYCenter:Float;
@@ -97,7 +97,7 @@ class Arrow extends Image
 		
 		if (leftDown) {
 			
-			angle = (angle + .03)%(Math.PI*2);
+			angle = arithMod((angle + .025), (Math.PI * 2));
 			x = xcenter + radius * Math.cos(angle);
 			y = ycenter + radius * Math.sin(angle);
 
@@ -106,7 +106,7 @@ class Arrow extends Image
 			rotation = angle;
 		} else if (rightDown) {
 			
-			angle = (angle - .03)%(Math.PI*2);
+			angle = arithMod((angle - .025), (Math.PI * 2));
 			x = xcenter + radius * Math.cos(angle);
 			y = ycenter + radius * Math.sin(angle);
 
@@ -114,5 +114,12 @@ class Arrow extends Image
 			arrowYCenter = ycenter + (radius-15) * Math.sin(angle);
 			rotation = angle;
 		}
+	}
+	
+	public function arithMod(n:Float, d:Float) : Float {
+		var r = n % d;
+		if (r < 0)
+			r += d;
+		return r;
 	}
 }
